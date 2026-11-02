@@ -8,6 +8,7 @@
       content="Descubra receitas compatíveis com os ingredientes disponíveis na sua cozinha."
     >
     <title>ChefMatch | O que dá para cozinhar hoje?</title>
+    <script src="script.js" defer></script>
   </head>
   <body>
     <header>
@@ -22,7 +23,77 @@
     <main>
       <section aria-labelledby="titulo-formulario">
         <h2 id="titulo-formulario">Ingredientes disponíveis</h2>
-        <p>O formulário será disponibilizado nesta seção.</p>
+        <p>Digite seu nome e marque pelo menos um ingrediente.</p>
+
+        <form id="form-cozinha" novalidate>
+          <div>
+            <label for="nome">Seu nome</label>
+            <input
+              type="text"
+              id="nome"
+              name="nome"
+              autocomplete="name"
+              aria-describedby="erro-formulario"
+              required
+            >
+          </div>
+
+          <fieldset aria-describedby="erro-formulario">
+            <legend>O que tem na sua cozinha?</legend>
+
+            <label>
+              <input type="checkbox" name="ingrediente" value="Ovo">
+              Ovo
+            </label>
+            <label>
+              <input type="checkbox" name="ingrediente" value="Leite">
+              Leite
+            </label>
+            <label>
+              <input type="checkbox" name="ingrediente" value="Farinha">
+              Farinha
+            </label>
+            <label>
+              <input type="checkbox" name="ingrediente" value="Açúcar">
+              Açúcar
+            </label>
+            <label>
+              <input type="checkbox" name="ingrediente" value="Queijo">
+              Queijo
+            </label>
+            <label>
+              <input type="checkbox" name="ingrediente" value="Tomate">
+              Tomate
+            </label>
+            <label>
+              <input type="checkbox" name="ingrediente" value="Cebola">
+              Cebola
+            </label>
+            <label>
+              <input type="checkbox" name="ingrediente" value="Arroz">
+              Arroz
+            </label>
+            <label>
+              <input type="checkbox" name="ingrediente" value="Frango">
+              Frango
+            </label>
+            <label>
+              <input type="checkbox" name="ingrediente" value="Batata">
+              Batata
+            </label>
+            <label>
+              <input type="checkbox" name="ingrediente" value="Macarrão">
+              Macarrão
+            </label>
+            <label>
+              <input type="checkbox" name="ingrediente" value="Chocolate">
+              Chocolate
+            </label>
+          </fieldset>
+
+          <p id="erro-formulario" role="alert" aria-live="assertive"></p>
+          <button type="submit">Ver receitas</button>
+        </form>
       </section>
 
       <section aria-labelledby="titulo-resultados">
