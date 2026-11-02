@@ -110,6 +110,20 @@ async function buscarReceitas() {
       return [];
     }
 
+    const catalogoValido = dados.every(
+      (receita) =>
+        Number.isInteger(receita.id) &&
+        typeof receita.nome === "string" &&
+        typeof receita.categoria === "string" &&
+        Array.isArray(receita.ingredientes) &&
+        receita.ingredientes.length > 0 &&
+        Number.isFinite(receita.tempoMinutos),
+    );
+
+    if (!catalogoValido) {
+      throw new Error("O catálogo de receitas possui dados inválidos.");
+    }
+
     const receitas = criarInstanciasDeReceitas(dados);
 
     statusReceitas.textContent = `${receitas.length} receitas carregadas com sucesso.`;
