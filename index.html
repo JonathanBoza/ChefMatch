@@ -8,25 +8,30 @@
       content="Descubra receitas compatíveis com os ingredientes disponíveis na sua cozinha."
     >
     <title>ChefMatch | O que dá para cozinhar hoje?</title>
+    <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
   </head>
   <body>
-    <header>
-      <p>ChefMatch</p>
-      <h1>O que dá para cozinhar hoje?</h1>
-      <p>
-        Informe os ingredientes que você tem em casa e descubra receitas
-        compatíveis.
-      </p>
+    <header class="cabecalho">
+      <div class="cabecalho__conteudo">
+        <p class="marca">ChefMatch</p>
+        <h1>O que dá para cozinhar hoje?</h1>
+        <p class="cabecalho__descricao">
+          Informe os ingredientes que você tem em casa e descubra receitas
+          compatíveis.
+        </p>
+      </div>
     </header>
 
-    <main>
-      <section aria-labelledby="titulo-formulario">
+    <main class="conteudo-principal">
+      <section class="painel painel--formulario" aria-labelledby="titulo-formulario">
         <h2 id="titulo-formulario">Ingredientes disponíveis</h2>
-        <p>Digite seu nome e marque pelo menos um ingrediente.</p>
+        <p class="texto-apoio">
+          Digite seu nome e marque pelo menos um ingrediente.
+        </p>
 
         <form id="form-cozinha" novalidate>
-          <div>
+          <div class="campo-nome">
             <label for="nome">Seu nome</label>
             <input
               type="text"
@@ -41,70 +46,94 @@
           <fieldset aria-describedby="erro-formulario">
             <legend>O que tem na sua cozinha?</legend>
 
-            <label>
+            <div class="lista-ingredientes">
+            <label class="ingrediente">
               <input type="checkbox" name="ingrediente" value="Ovo">
               Ovo
             </label>
-            <label>
+            <label class="ingrediente">
               <input type="checkbox" name="ingrediente" value="Leite">
               Leite
             </label>
-            <label>
+            <label class="ingrediente">
               <input type="checkbox" name="ingrediente" value="Farinha">
               Farinha
             </label>
-            <label>
+            <label class="ingrediente">
               <input type="checkbox" name="ingrediente" value="Açúcar">
               Açúcar
             </label>
-            <label>
+            <label class="ingrediente">
               <input type="checkbox" name="ingrediente" value="Queijo">
               Queijo
             </label>
-            <label>
+            <label class="ingrediente">
               <input type="checkbox" name="ingrediente" value="Tomate">
               Tomate
             </label>
-            <label>
+            <label class="ingrediente">
               <input type="checkbox" name="ingrediente" value="Cebola">
               Cebola
             </label>
-            <label>
+            <label class="ingrediente">
               <input type="checkbox" name="ingrediente" value="Arroz">
               Arroz
             </label>
-            <label>
+            <label class="ingrediente">
               <input type="checkbox" name="ingrediente" value="Frango">
               Frango
             </label>
-            <label>
+            <label class="ingrediente">
               <input type="checkbox" name="ingrediente" value="Batata">
               Batata
             </label>
-            <label>
+            <label class="ingrediente">
               <input type="checkbox" name="ingrediente" value="Macarrão">
               Macarrão
             </label>
-            <label>
+            <label class="ingrediente">
               <input type="checkbox" name="ingrediente" value="Chocolate">
               Chocolate
             </label>
+            </div>
           </fieldset>
 
-          <p id="erro-formulario" role="alert" aria-live="assertive"></p>
+          <p
+            id="erro-formulario"
+            class="mensagem mensagem--erro"
+            role="alert"
+            aria-live="assertive"
+          ></p>
           <button type="submit">Ver receitas</button>
         </form>
       </section>
 
-      <section aria-labelledby="titulo-resultados">
+      <section
+        id="secao-resultados"
+        class="painel painel--resultados"
+        aria-labelledby="titulo-resultados"
+        tabindex="-1"
+      >
         <h2 id="titulo-resultados">Receitas recomendadas</h2>
-        <p id="status-receitas" role="status" aria-live="polite">
+        <p
+          id="status-receitas"
+          class="mensagem mensagem--status"
+          role="status"
+          aria-live="polite"
+        >
           Preencha o formulário para consultar as receitas.
         </p>
+        <p id="saudacao-resultados" class="saudacao"></p>
+        <div id="recomendacao-principal"></div>
+        <div
+          id="lista-receitas"
+          class="lista-receitas"
+          aria-label="Outras receitas recomendadas"
+        ></div>
       </section>
     </main>
 
-    <footer>
+    <footer class="rodape">
       <p>Projeto acadêmico ChefMatch.</p>
     </footer>
   </body>

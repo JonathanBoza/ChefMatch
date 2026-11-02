@@ -1,0 +1,420 @@
+:root {
+  color-scheme: light;
+  --cor-fundo: #f3f6ee;
+  --cor-superficie: #ffffff;
+  --cor-texto: #173021;
+  --cor-texto-suave: #496052;
+  --cor-primaria: #185b3a;
+  --cor-primaria-escura: #0d3d26;
+  --cor-destaque: #d8f06c;
+  --cor-borda: #cad8cb;
+  --cor-erro: #a62b2b;
+  --cor-erro-fundo: #fff0ef;
+  --largura-conteudo: 72rem;
+  --raio: 0.875rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 20rem;
+  margin: 0;
+  background: var(--cor-fundo);
+  color: var(--cor-texto);
+  font-family:
+    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.6;
+}
+
+::selection {
+  background: var(--cor-destaque);
+  color: var(--cor-primaria-escura);
+}
+
+.cabecalho {
+  background: var(--cor-primaria);
+  color: #ffffff;
+  padding: clamp(3rem, 8vw, 6.5rem) 1.25rem;
+}
+
+.cabecalho__conteudo,
+.conteudo-principal,
+.rodape p {
+  width: min(100%, var(--largura-conteudo));
+  margin-inline: auto;
+}
+
+.cabecalho__conteudo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.marca {
+  width: fit-content;
+  margin: 0 0 1.25rem;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+h1,
+h2,
+h3,
+p {
+  overflow-wrap: break-word;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.15;
+}
+
+h1 {
+  max-width: 16ch;
+  margin: 0;
+  font-size: clamp(2.5rem, 7vw, 5.25rem);
+  letter-spacing: -0.035em;
+}
+
+h2 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.6rem, 3vw, 2.25rem);
+  letter-spacing: -0.025em;
+}
+
+h3 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.cabecalho__descricao {
+  max-width: 40rem;
+  margin: 1.5rem auto 0;
+  color: #e3f1e8;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+}
+
+.conteudo-principal {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: clamp(2rem, 5vw, 4rem) 1.25rem;
+}
+
+.painel {
+  padding: clamp(1.25rem, 4vw, 2.5rem);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  background: var(--cor-superficie);
+}
+
+.painel:focus {
+  outline: none;
+}
+
+.painel:focus-visible {
+  outline: 3px solid var(--cor-destaque);
+  outline-offset: 4px;
+}
+
+.texto-apoio {
+  margin: 0 0 1.75rem;
+  color: var(--cor-texto-suave);
+}
+
+form,
+.campo-nome {
+  display: flex;
+  flex-direction: column;
+}
+
+form {
+  gap: 1.5rem;
+}
+
+.campo-nome {
+  gap: 0.5rem;
+}
+
+label,
+legend {
+  font-weight: 700;
+}
+
+input[type="text"] {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.75rem 0.875rem;
+  border: 1px solid #829688;
+  border-radius: 0.625rem;
+  background: #ffffff;
+  color: var(--cor-texto);
+  font: inherit;
+  caret-color: var(--cor-primaria);
+}
+
+input[type="text"][aria-invalid="true"] {
+  border-color: var(--cor-erro);
+  background: var(--cor-erro-fundo);
+}
+
+fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 1rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: 0.75rem;
+}
+
+legend {
+  padding-inline: 0.4rem;
+}
+
+.lista-ingredientes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.ingrediente {
+  display: inline-flex;
+  flex: 1 1 9rem;
+  align-items: center;
+  gap: 0.65rem;
+  min-height: 2.75rem;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: 0.625rem;
+  background: #f8faf6;
+  cursor: pointer;
+}
+
+.ingrediente:has(input:checked) {
+  border-color: var(--cor-primaria);
+  background: #e5f2e8;
+}
+
+input[type="checkbox"] {
+  width: 1.15rem;
+  height: 1.15rem;
+  margin: 0;
+  accent-color: var(--cor-primaria);
+}
+
+button {
+  min-height: 3.25rem;
+  padding: 0.8rem 1.25rem;
+  border: 0;
+  border-radius: 0.625rem;
+  background: var(--cor-primaria);
+  color: #ffffff;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    background-color 180ms ease-out,
+    transform 180ms ease-out;
+}
+
+button:hover {
+  background: var(--cor-primaria-escura);
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--cor-destaque);
+  outline-offset: 3px;
+}
+
+.mensagem {
+  margin: 0;
+}
+
+.mensagem--erro:not(:empty) {
+  padding: 0.75rem 0.875rem;
+  border: 1px solid #dfaaa7;
+  border-radius: 0.625rem;
+  background: var(--cor-erro-fundo);
+  color: var(--cor-erro);
+  font-weight: 700;
+}
+
+.mensagem--status {
+  color: var(--cor-texto-suave);
+}
+
+.saudacao {
+  margin: 1.5rem 0 1rem;
+  font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+  font-weight: 800;
+}
+
+.card-receita {
+  flex: 1 1 17rem;
+  max-width: calc((100% - 2rem) / 3);
+  padding: 1.25rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  background: #ffffff;
+}
+
+.card-receita p {
+  margin: 0.65rem 0 0;
+}
+
+.card-receita__resumo {
+  color: var(--cor-texto-suave);
+}
+
+.card-receita__metricas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-block: 1.25rem 1rem;
+}
+
+.card-receita__compatibilidade {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  margin: 0 !important;
+  color: var(--cor-texto-suave);
+}
+
+.card-receita__compatibilidade strong {
+  color: var(--cor-primaria);
+  font-size: 1.75rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.card-receita__compatibilidade span {
+  font-size: 0.875rem;
+}
+
+.card-receita__classificacao {
+  width: fit-content;
+  margin: 0 !important;
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+  background: #e5f2e8;
+  color: var(--cor-primaria-escura);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.card-receita--principal {
+  max-width: none;
+  margin-bottom: 1rem;
+  border-color: transparent;
+  background: var(--cor-primaria-escura);
+  color: #ffffff;
+}
+
+.card-receita--principal .card-receita__resumo {
+  color: #d9eadf;
+}
+
+.card-receita--principal .card-receita__compatibilidade {
+  color: #d9eadf;
+}
+
+.card-receita--principal .card-receita__compatibilidade strong {
+  color: var(--cor-destaque);
+}
+
+.card-receita--principal .card-receita__classificacao {
+  background: #ffffff;
+}
+
+.card-receita__destaque {
+  width: fit-content;
+  margin: 0 0 1rem !important;
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+  background: var(--cor-destaque);
+  color: var(--cor-primaria-escura);
+  font-size: 0.8rem;
+  font-weight: 900;
+}
+
+.lista-receitas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.rodape {
+  padding: 2rem 1.25rem;
+  background: var(--cor-primaria-escura);
+  color: #d9eadf;
+}
+
+.rodape p {
+  margin-block: 0;
+}
+
+@media (max-width: 60rem) {
+  .card-receita {
+    max-width: calc((100% - 1rem) / 2);
+  }
+
+  .card-receita--principal {
+    max-width: none;
+  }
+}
+
+@media (max-width: 40rem) {
+  .cabecalho {
+    padding-block: 3rem;
+  }
+
+  .conteudo-principal {
+    padding-inline: 1rem;
+  }
+
+  .painel {
+    padding: 1.25rem;
+  }
+
+  .ingrediente,
+  .card-receita {
+    flex-basis: 100%;
+    max-width: none;
+  }
+
+  button {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

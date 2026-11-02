@@ -2,6 +2,12 @@ const formulario = document.querySelector("#form-cozinha");
 const campoNome = document.querySelector("#nome");
 const mensagemErro = document.querySelector("#erro-formulario");
 const statusReceitas = document.querySelector("#status-receitas");
+const secaoResultados = document.querySelector("#secao-resultados");
+const saudacaoResultados = document.querySelector("#saudacao-resultados");
+const recomendacaoPrincipal = document.querySelector(
+  "#recomendacao-principal",
+);
+const listaReceitas = document.querySelector("#lista-receitas");
 
 class Receita {
   constructor(id, nome, categoria, ingredientes, tempoMinutos) {
@@ -91,6 +97,86 @@ function organizarRecomendacoes(compatibilidades) {
     recomendacaoPrincipal,
     outrasRecomendacoes,
   };
+}
+
+function criarParagrafo(rotulo, valor) {
+  const paragrafo = document.createElement("p");
+  const destaque = document.createElement("strong");
+
+  destaque.textContent = `${rotulo}: `;
+  paragrafo.append(destaque, valor);
+  return paragrafo;
+}
+
+function criarCardReceita(resultado, principal = false) {
+  const card = document.createElement("article");
+  const titulo = document.createElement("h3");
+  const resumo = document.createElement("p");
+  const metricas = document.createElement("div");
+  const compatibilidade = document.createElement("p");
+  const percentual = document.createElement("strong");
+  const rotuloPercentual = document.createElement("span");
+  const classificacao = document.createElement("p");
+  const faltantes = resultado.ingredientesFaltantes.length
+    ? resultado.ingredientesFaltantes.join(", ")
+    : "Nenhum";
+
+  card.className = principal
+    ? "card-receita card-receita--principal"
+    : "card-receita";
+
+  if (principal) {
+    const identificacao = document.createElement("p");
+    identificacao.className = "card-receita__destaque";
+    identificacao.textContent = "Recomendação principal";
+    card.append(identificacao);
+  }
+
+  titulo.textContent = resultado.receita.nome;
+  resumo.className = "card-receita__resumo";
+  resumo.textContent = resultado.receita.exibirResumo();
+  metricas.className = "card-receita__metricas";
+  compatibilidade.className = "card-receita__compatibilidade";
+  percentual.textContent = `${resultado.compatibilidade}%`;
+  rotuloPercentual.textContent = "compatível";
+  classificacao.className = "card-receita__classificacao";
+  classificacao.textContent = resultado.classificacao;
+
+  compatibilidade.append(percentual, rotuloPercentual);
+  metricas.append(compatibilidade, classificacao);
+
+  card.append(
+    titulo,
+    resumo,
+    metricas,
+    criarParagrafo("Ingredientes que faltam", faltantes),
+  );
+
+  return card;
+}
+
+function renderizarResultados(usuario, recomendacoes) {
+  recomendacaoPrincipal.replaceChildren();
+  listaReceitas.replaceChildren();
+
+  saudacaoResultados.textContent = `${usuario.nome}, olha o que dá para cozinhar hoje.`;
+
+  if (!recomendacoes.recomendacaoPrincipal) {
+    statusReceitas.textContent = "Nenhuma recomendação está disponível.";
+    return;
+  }
+
+  recomendacaoPrincipal.append(
+    criarCardReceita(recomendacoes.recomendacaoPrincipal, true),
+  );
+
+  recomendacoes.outrasRecomendacoes.forEach((resultado) => {
+    listaReceitas.append(criarCardReceita(resultado));
+  });
+
+  const total = recomendacoes.outrasRecomendacoes.length + 1;
+  statusReceitas.textContent = `${total} receitas analisadas e ordenadas por compatibilidade.`;
+  secaoResultados.focus();
 }
 
 async function buscarReceitas() {
@@ -214,7 +300,6 @@ formulario.addEventListener("submit", async (evento) => {
 
     const recomendacoes = organizarRecomendacoes(compatibilidades);
 
-    console.log("Recomendação principal:", recomendacoes.recomendacaoPrincipal);
-    console.table(recomendacoes.outrasRecomendacoes);
+    renderizarResultados(usuario, recomendacoes);
   }
 });
