@@ -107,8 +107,7 @@ Repositório público:
 
 ## Vídeo de apresentação
 
-O link público será adicionado aqui depois da gravação do vídeo de até quatro
-minutos.
+[Assistir ao vídeo de apresentação do ChefMatch](https://drive.google.com/file/d/1fLPMx9m9nISdkV4PSIIz-kr7iyNmkiCH/view?usp=sharing)
 
 ## Melhorias futuras
 
