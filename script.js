@@ -3,6 +3,46 @@ const campoNome = document.querySelector("#nome");
 const mensagemErro = document.querySelector("#erro-formulario");
 const statusReceitas = document.querySelector("#status-receitas");
 
+class Receita {
+  constructor(id, nome, categoria, ingredientes, tempoMinutos) {
+    this.id = id;
+    this.nome = nome;
+    this.categoria = categoria;
+    this.ingredientes = ingredientes;
+    this.tempoMinutos = tempoMinutos;
+  }
+
+  exibirResumo() {
+    return `${this.nome} · ${this.categoria} · ${this.tempoMinutos} min`;
+  }
+}
+
+class ReceitaRapida extends Receita {
+  exibirResumo() {
+    return `${super.exibirResumo()} · Receita rápida!`;
+  }
+}
+
+function criarInstanciasDeReceitas(dados) {
+  return dados.map((receita) =>
+    receita.tempoMinutos <= 20
+      ? new ReceitaRapida(
+          receita.id,
+          receita.nome,
+          receita.categoria,
+          receita.ingredientes,
+          receita.tempoMinutos,
+        )
+      : new Receita(
+          receita.id,
+          receita.nome,
+          receita.categoria,
+          receita.ingredientes,
+          receita.tempoMinutos,
+        ),
+  );
+}
+
 async function buscarReceitas() {
   statusReceitas.textContent = "Procurando receitas...";
 
@@ -13,12 +53,14 @@ async function buscarReceitas() {
       throw new Error(`Não foi possível carregar as receitas (${resposta.status}).`);
     }
 
-    const receitas = await resposta.json();
+    const dados = await resposta.json();
 
-    if (!Array.isArray(receitas) || receitas.length === 0) {
+    if (!Array.isArray(dados) || dados.length === 0) {
       statusReceitas.textContent = "Nenhuma receita foi encontrada no catálogo.";
       return [];
     }
+
+    const receitas = criarInstanciasDeReceitas(dados);
 
     statusReceitas.textContent = `${receitas.length} receitas carregadas com sucesso.`;
     return receitas;
