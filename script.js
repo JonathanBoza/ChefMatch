@@ -15,6 +15,22 @@ class Receita {
   exibirResumo() {
     return `${this.nome} · ${this.categoria} · ${this.tempoMinutos} min`;
   }
+
+  calcularCompatibilidade(ingredientesUsuario) {
+    const ingredientesEmComum = this.ingredientes.filter((ingrediente) =>
+      ingredientesUsuario.includes(ingrediente),
+    );
+
+    return Math.round(
+      (ingredientesEmComum.length / this.ingredientes.length) * 100,
+    );
+  }
+
+  ingredientesFaltantes(ingredientesUsuario) {
+    return this.ingredientes.filter(
+      (ingrediente) => !ingredientesUsuario.includes(ingrediente),
+    );
+  }
 }
 
 class ReceitaRapida extends Receita {
@@ -133,6 +149,14 @@ formulario.addEventListener("submit", async (evento) => {
   const receitas = await buscarReceitas();
 
   if (receitas) {
-    console.log("Catálogo carregado:", receitas);
+    const compatibilidades = receitas.map((receita) => ({
+      receita: receita.nome,
+      compatibilidade: receita.calcularCompatibilidade(usuario.ingredientes),
+      ingredientesFaltantes: receita.ingredientesFaltantes(
+        usuario.ingredientes,
+      ),
+    }));
+
+    console.table(compatibilidades);
   }
 });
