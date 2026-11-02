@@ -180,6 +180,9 @@ function renderizarResultados(usuario, recomendacoes) {
 }
 
 async function buscarReceitas() {
+  recomendacaoPrincipal.replaceChildren();
+  listaReceitas.replaceChildren();
+  saudacaoResultados.textContent = "";
   statusReceitas.textContent = "Procurando receitas...";
 
   try {
