@@ -31,6 +31,18 @@ class Receita {
       (ingrediente) => !ingredientesUsuario.includes(ingrediente),
     );
   }
+
+  classificarCompatibilidade(percentual) {
+    if (percentual === 100) {
+      return "Dá pra fazer agora!";
+    }
+
+    if (percentual >= 50) {
+      return "Falta pouco";
+    }
+
+    return "Fica pra outro dia";
+  }
 }
 
 class ReceitaRapida extends Receita {
@@ -149,13 +161,20 @@ formulario.addEventListener("submit", async (evento) => {
   const receitas = await buscarReceitas();
 
   if (receitas) {
-    const compatibilidades = receitas.map((receita) => ({
-      receita: receita.nome,
-      compatibilidade: receita.calcularCompatibilidade(usuario.ingredientes),
-      ingredientesFaltantes: receita.ingredientesFaltantes(
+    const compatibilidades = receitas.map((receita) => {
+      const compatibilidade = receita.calcularCompatibilidade(
         usuario.ingredientes,
-      ),
-    }));
+      );
+
+      return {
+        receita: receita.nome,
+        compatibilidade,
+        classificacao: receita.classificarCompatibilidade(compatibilidade),
+        ingredientesFaltantes: receita.ingredientesFaltantes(
+          usuario.ingredientes,
+        ),
+      };
+    });
 
     console.table(compatibilidades);
   }
