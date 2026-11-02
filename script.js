@@ -1,6 +1,34 @@
 const formulario = document.querySelector("#form-cozinha");
 const campoNome = document.querySelector("#nome");
 const mensagemErro = document.querySelector("#erro-formulario");
+const statusReceitas = document.querySelector("#status-receitas");
+
+async function buscarReceitas() {
+  statusReceitas.textContent = "Procurando receitas...";
+
+  try {
+    const resposta = await fetch("receitas.json");
+
+    if (!resposta.ok) {
+      throw new Error(`Não foi possível carregar as receitas (${resposta.status}).`);
+    }
+
+    const receitas = await resposta.json();
+
+    if (!Array.isArray(receitas) || receitas.length === 0) {
+      statusReceitas.textContent = "Nenhuma receita foi encontrada no catálogo.";
+      return [];
+    }
+
+    statusReceitas.textContent = `${receitas.length} receitas carregadas com sucesso.`;
+    return receitas;
+  } catch (erro) {
+    console.error("Erro ao carregar o catálogo:", erro);
+    statusReceitas.textContent =
+      "Não foi possível carregar as receitas. Tente novamente em instantes.";
+    return null;
+  }
+}
 
 function obterIngredientesMarcados() {
   const marcados = document.querySelectorAll(
@@ -25,7 +53,7 @@ function limparErros() {
     .forEach((ingrediente) => ingrediente.removeAttribute("aria-invalid"));
 }
 
-formulario.addEventListener("submit", (evento) => {
+formulario.addEventListener("submit", async (evento) => {
   evento.preventDefault();
   limparErros();
 
@@ -59,4 +87,10 @@ formulario.addEventListener("submit", (evento) => {
   };
 
   console.log("Perfil informado:", usuario);
+
+  const receitas = await buscarReceitas();
+
+  if (receitas) {
+    console.log("Catálogo carregado:", receitas);
+  }
 });
