@@ -71,6 +71,28 @@ function criarInstanciasDeReceitas(dados) {
   );
 }
 
+function organizarRecomendacoes(compatibilidades) {
+  if (compatibilidades.length === 0) {
+    return {
+      recomendacaoPrincipal: null,
+      outrasRecomendacoes: [],
+    };
+  }
+
+  const recomendacaoPrincipal = compatibilidades.reduce((melhor, atual) =>
+    atual.compatibilidade > melhor.compatibilidade ? atual : melhor,
+  );
+
+  const outrasRecomendacoes = compatibilidades
+    .filter((resultado) => resultado !== recomendacaoPrincipal)
+    .sort((a, b) => b.compatibilidade - a.compatibilidade);
+
+  return {
+    recomendacaoPrincipal,
+    outrasRecomendacoes,
+  };
+}
+
 async function buscarReceitas() {
   statusReceitas.textContent = "Procurando receitas...";
 
@@ -167,7 +189,7 @@ formulario.addEventListener("submit", async (evento) => {
       );
 
       return {
-        receita: receita.nome,
+        receita,
         compatibilidade,
         classificacao: receita.classificarCompatibilidade(compatibilidade),
         ingredientesFaltantes: receita.ingredientesFaltantes(
@@ -176,6 +198,9 @@ formulario.addEventListener("submit", async (evento) => {
       };
     });
 
-    console.table(compatibilidades);
+    const recomendacoes = organizarRecomendacoes(compatibilidades);
+
+    console.log("Recomendação principal:", recomendacoes.recomendacaoPrincipal);
+    console.table(recomendacoes.outrasRecomendacoes);
   }
 });
